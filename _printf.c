@@ -6,6 +6,7 @@
 /**
  * _printf - prints anything
  * @format: list of argument types passed to the function
+ *
  * Return: number of characters printed
  */
 
@@ -109,5 +110,5 @@ int _printf(const char *format, ...)
     // free the list of arguments
     va_end(args);
     // return the number of characters printed
-    return (count);
+    return (0);
 }
