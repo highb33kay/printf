@@ -4,6 +4,36 @@
 #include <unistd.h>
 
 /**
+ * print_char - prints a character
+ * @c: character to print
+ *
+ * Return: number of characters printed
+ */
+int print_char(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
+
+/**
+ * print_string - prints a string
+ * @s: string to print
+ *
+ * Return: number of characters printed
+ */
+int print_string(char *s)
+{
+	int len = 0;
+
+	while (s[len] != '\0')
+	{
+		len++;
+	}
+	write(1, s, len);
+	return (len);
+}
+
+/**
  * _printf - prints anything
  * @format: list of argument types passed to the function
  *
@@ -14,60 +44,31 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	unsigned int i;
-	char *s;
 	int count = 0;
-	char c;
 
 	va_start(args, format);
 	if (format == NULL)
-	{
 		return (-1);
-	}
 
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
 		{
-			write(1, &format[i], 1);
-			count++;
+			count += print_char(format[i]);
 		}
 		else
 		{
 			if (format[i + 1] != 'c' && format[i + 1] != 's' && format[i + 1] != '%')
-			{
-				write(1, &format[i], 1);
-				count++;
-			}
+				count += print_char(format[i]);
 			if (format[i + 1] == 'c')
-			{
-				c = va_arg(args, int);
-				write(1, &c, 1);
-				count++;
-				i++;
-			}
+				count += print_char(va_arg(args, int)), i++;
 			if (format[i + 1] == 's')
-			{
-				int len = 0;
-
-				s = va_arg(args, char *);
-				while (s[len] != '\0')
-				{
-					len++;
-				}
-				write(1, s, len);
-				count++;
-				i++;
-			}
+				count += print_string(va_arg(args, char *)), i++;
 			if (format[i + 1] == '%')
-			{
-				write(1, "%", 1);
-				count++;
-				i++;
-			}
+				count += print_char('%'), i++;
 		}
 	}
 
 	va_end(args);
 	return (count);
 }
-
