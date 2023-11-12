@@ -2,7 +2,6 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>
 
 /**
  * _printf - prints anything
@@ -73,37 +72,37 @@ int _printf(const char *format, ...)
                 count++;
                 i++;
             }
-            if (format[i + 1] == 'i')
-            {
-                d = va_arg(args, int);
-                int part = abs(d);
-                char buffer[12];
-                int length = 0;
+            // if (format[i + 1] == 'i')
+            // {
+            //     d = va_arg(args, int);
+            //     int part = abs(d);
+            //     char buffer[12];
+            //     int length = 0;
 
-                // Handle negative numbers
-                if (d < 0)
-                {
-                    write(1, "-", 1);
-                    count++;
-                }
+            //     // Handle negative numbers
+            //     if (d < 0)
+            //     {
+            //         write(1, "-", 1);
+            //         count++;
+            //     }
 
-                // Convert integer to string
-                do
-                {
-                    buffer[length++] = '0' + part % 10;
-                    part /= 10;
-                } while (part > 0);
+            //     // Convert integer to string
+            //     do
+            //     {
+            //         buffer[length++] = '0' + part % 10;
+            //         part /= 10;
+            //     } while (part > 0);
 
-                // Print characters in reverse order
-                for (int j = length - 1; j >= 0; j--)
-                {
-                    write(1, &buffer[j], 1);
-                    count++;
-                    i++;
-                }
+            //     // Print characters in reverse order
+            //     for (int j = length - 1; j >= 0; j--)
+            //     {
+            //         write(1, &buffer[j], 1);
+            //         count++;
+            //         i++;
+            //     }
 
-                i++;
-            }
+            //     i++;
+            // }
         }
     }
 
