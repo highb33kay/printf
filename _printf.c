@@ -106,7 +106,10 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			if (format[i + 1] != 'c' && format[i + 1] != 's' && format[i + 1] != '%')
+			/**
+			 * Need to shorten this conditional
+			 */
+			if (format[i + 1] != 'c' && format[i + 1] != 's' && format[i + 1] != '%' && format[i + 1] != 'i' && format[i + 1] != 'd')
 				count += print_char(format[i]);
 			if (format[i + 1] == 'c')
 				count += print_char(va_arg(args, int)), i++;
