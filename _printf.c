@@ -58,30 +58,6 @@ int print_int(int n)
 }
 
 /**
- * print_decimal - prints a decimal
- * @n: decimal to print
- *
- * Return: number of characters printed
- */
-int print_decimal(int n)
-{
-	int len = 0;
-	int num = n;
-
-	if (n < 0)
-	{
-		num = -num;
-		len += print_char('-');
-	}
-	if (num / 10)
-	{
-		len += print_decimal(num / 10);
-	}
-	len += print_char((num % 10) + '0');
-	return (len);
-}
-
-/**
  * _printf - prints anything
  * @format: list of argument types passed to the function
  *
@@ -117,10 +93,8 @@ int _printf(const char *format, ...)
 				count += print_string(va_arg(args, char *)), i++;
 			if (format[i + 1] == '%')
 				count += print_char('%'), i++;
-			if (format[i + 1] == 'i')
+			if (format[i + 1] == 'i' || format[i + 1] == 'd')
 				count += print_int(va_arg(args, int)), i++;
-			if (format[i + 1] == 'd')
-				count += print_decimal(va_arg(args, int)), i++;
 		}
 	}
 
