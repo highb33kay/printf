@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 /**
  * print_char - prints a character
@@ -58,6 +59,32 @@ int print_int(int n)
 }
 
 /**
+ * conv_binary - converts unsigned in to binary
+ * @n: the number to be converted
+ *
+ * Return: always 0
+ */
+
+int conv_binary(unsigned int n)
+{
+	unsigned int i, j;
+	unsigned int num[sizeof(n) * 8];
+
+	while (n > 0)
+	{
+		num[i] = n % 2;
+		n = n / 2;
+		i++;
+	}
+
+	for (j = i; j > 0; j--)
+	{
+		print_int(num[j - 1]);
+	}
+	return (0);
+}
+
+/**
  * _printf - prints anything
  * @format: list of argument types passed to the function
  *
@@ -73,7 +100,6 @@ int _printf(const char *format, ...)
 	va_start(args, format);
 	if (format == NULL)
 		return (-1);
-
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
@@ -97,13 +123,14 @@ int _printf(const char *format, ...)
 				case '%':
 					count += print_char('%'), i++;
 					break;
+				case 'b':
+					count += conv_binary(va_arg(args, int)), i++;
+					break;
 				default:
 					count += print_char(format[i]);
-					break;
 			}
 		}
 	}
-
 	va_end(args);
 	return (count);
 }
