@@ -82,19 +82,25 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			/**
-			 * Need to shorten this conditional
-			 */
-			if (format[i + 1] != 'c' && format[i + 1] != 's' && format[i + 1] != '%' && format[i + 1] != 'i' && format[i + 1] != 'd')
-				count += print_char(format[i]);
-			if (format[i + 1] == 'c')
-				count += print_char(va_arg(args, int)), i++;
-			if (format[i + 1] == 's')
-				count += print_string(va_arg(args, char *)), i++;
-			if (format[i + 1] == '%')
-				count += print_char('%'), i++;
-			if (format[i + 1] == 'i' || format[i + 1] == 'd')
-				count += print_int(va_arg(args, int)), i++;
+			switch (format[i + 1])
+			{
+				case 'c':
+					count += print_char(va_arg(args, int)), i++;
+					break;
+				case 's':
+					count += print_string(va_arg(args, char *)), i++;
+					break;
+				case 'd':
+				case 'i':
+					count += print_int(va_arg(args, int)), i++;
+					break;
+				case '%':
+					count += print_char('%'), i++;
+					break;
+				default:
+					count += print_char(format[i]);
+					break;
+			}
 		}
 	}
 
