@@ -73,6 +73,7 @@ int _printf(const char *format, ...)
 	va_start(args, format);
 	if (format == NULL)
 		return (-1);
+
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
@@ -81,27 +82,35 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			switch (format[i + 1])
-			{
-				case 'c':
-					count += print_char(va_arg(args, int)), i++;
-					break;
-				case 's':
-					count += print_string(va_arg(args, char *)), i++;
-					break;
-				case '%':
-					count += print_char('%'), i++;
-					break;
-				case 'd':
-				case 'i':
-					count += print_int(va_arg(args, int)), i++;
-					break;
-				default:
-					count += print_char(format[i]);
-					break;
-			}
+			/**
+			 * Need to shorten this conditional
+			 */
+switch (format[i + 1]) {
+    case 'c':
+        count += print_char(va_arg(args, int));
+        i++;
+        break;
+    case 's':
+        count += print_string(va_arg(args, char *));
+        i++;
+        break;
+    case '%':
+        count += print_char('%');
+        i++;
+        break;
+    case 'i':
+    case 'd':
+        count += print_int(va_arg(args, int));
+        i++;
+        break;
+    default:
+        count += print_char(format[i]);
+	break;
+}
+
 		}
 	}
+
 	va_end(args);
 	return (count);
 }
