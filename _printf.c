@@ -26,6 +26,11 @@ int print_string(char *s)
 {
 	int len = 0;
 
+	if (s == NULL)
+	{
+		return (-1);
+	}
+
 	while (s[len] != '\0')
 	{
 		len++;
